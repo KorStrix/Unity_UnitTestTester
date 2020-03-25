@@ -1,0 +1,16 @@
+{
+    "name": "KorStrix.UnityPattern.Editor",
+    "references": [
+        "KorStrix.UnityPattern.Runtime"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
+}

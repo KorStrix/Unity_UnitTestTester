@@ -28,10 +28,10 @@ namespace Tutorial
         int _iTestNumber;
 
         [Test]
-        public void 델리게이트_사용방법()
+        public void Delegate_HowUse()
         {
             // Arrange (데이터 정렬)
-            DelegateTestName delegateExample = 멤버변수에_1을더합니다;
+            DelegateTestName delegateExample = AddMember_PlusOne;
             _iTestNumber = 0;
 
             // Action (기능 실행) &&  Assert (맞는지 체크)
@@ -59,7 +59,7 @@ namespace Tutorial
             // 델리게이트 변수에 + 혹은 -를 하면 여러개의 함수를 대입할 수 있습니다
             // 이 경우는 마이너스 익명메소드와 플러스 멤버메소드를 연달아 대입했으므로, TestNumber는 변하지 않습니다
             // Arrange (데이터 정렬)
-            delegateExample += 멤버변수에_1을더합니다;
+            delegateExample += AddMember_PlusOne;
 
             // Action (기능 실행) &&  Assert (맞는지 체크)
             delegateExample();
@@ -71,7 +71,7 @@ namespace Tutorial
 
 
         [Test]
-        public void 델리게이트가_Null이면_Exception을뱉습니다()
+        public void When_Delegate_Is_Null_Throw_Exception()
         {
             // Arrange (데이터 정렬)
             DelegateTestName delegateExample = null;
@@ -107,11 +107,11 @@ namespace Tutorial
         event DelegateTestName OnVoidEvent;
 
         [Test]
-        public void 이벤트_사용방법()
+        public void Event_HowUse()
         {
             // Arrange (데이터 정렬)
-            OnVoidEvent += 멤버변수에_1을더합니다;
-            OnVoidEvent += 멤버변수에_1을더합니다;
+            OnVoidEvent += AddMember_PlusOne;
+            OnVoidEvent += AddMember_PlusOne;
 
             _iTestNumber = 0;
 
@@ -126,7 +126,7 @@ namespace Tutorial
 
         #endregion
 
-        public void 멤버변수에_1을더합니다()
+        public void AddMember_PlusOne()
         {
             _iTestNumber++;
         }

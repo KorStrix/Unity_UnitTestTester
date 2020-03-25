@@ -25,7 +25,7 @@ namespace Tutorial
     public class Linq_Example
     {
         [Test]
-        public void 링큐_Where예시_Int()
+        public void LinqExample_Where_Int()
         {
             // Arrange
             List<int> listInt = new List<int>();
@@ -64,7 +64,7 @@ namespace Tutorial
         }
 
         [Test]
-        public void 링큐_Where예시_String()
+        public void LinqExample_Where_String()
         {
             // Arrange
             List<Human> listHuman = new List<Human>();
@@ -96,7 +96,7 @@ namespace Tutorial
         }
 
         [Test]
-        public void 링큐_GroupBy_예시()
+        public void LinqExample_GroupBy()
         {
             // Arrange
             List<Human> listHuman = new List<Human>();

@@ -22,11 +22,7 @@ namespace Tutorial
     /// <summary>
     /// 
     /// </summary>
-<<<<<<< HEAD:UnityProject/Packages/CSharp_Tutorial/CSharp_Tutorial/LinqTest.cs
-    public class LinqTest
-=======
     public class Linq_Example
->>>>>>> f068ccf27152573325cd8b416da7bf47f3abbda8:UnityProject/Packages/CSharp_Tutorial/CSharp_Tutorial/Linq_Example.cs
     {
         [Test]
         public void 링큐_Where예시_Int()
@@ -132,6 +128,7 @@ namespace Tutorial
                 foreach (var pHuman in pHumanGroup)
                     Debug.Log(pHuman.ToString());
             }
+
         }
     }
 }

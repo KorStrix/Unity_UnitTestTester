@@ -19,7 +19,7 @@ using UnityEngine.TestTools;
 namespace Tutorial
 {
 
-    public class 델리게이트와_이벤트
+    public class Delegate_And_Event_Example
     {
         #region 델리게이트
 

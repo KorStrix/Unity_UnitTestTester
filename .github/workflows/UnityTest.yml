@@ -35,9 +35,3 @@ jobs:
         with:
           projectPath: UnityProject
           unityVersion: 2019.2.11f1
-
-      # Output 
-      - uses: actions/upload-artifact@v1
-        with:
-          name: Build
-          path: build

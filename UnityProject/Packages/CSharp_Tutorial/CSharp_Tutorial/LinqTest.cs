@@ -22,7 +22,7 @@ namespace Tutorial
     /// <summary>
     /// 
     /// </summary>
-    public class 링큐
+    public class LinqTest
     {
         [Test]
         public void 링큐_Where예시_Int()

@@ -19,7 +19,7 @@ using UnityEngine.TestTools;
 namespace Tutorial
 {
 
-    public class Delegate_And_Event_Example
+    public class 델리게이트와_이벤트
     {
         #region 델리게이트
 
@@ -28,10 +28,10 @@ namespace Tutorial
         int _iTestNumber;
 
         [Test]
-        public void Delegate_HowUse()
+        public void 델리게이트는_어떻게쓰는지()
         {
             // Arrange (데이터 정렬)
-            DelegateTestName delegateExample = AddMember_PlusOne;
+            DelegateTestName delegateExample = 멤버변수를_플러스1합니다;
             _iTestNumber = 0;
 
             // Action (기능 실행) &&  Assert (맞는지 체크)
@@ -59,7 +59,7 @@ namespace Tutorial
             // 델리게이트 변수에 + 혹은 -를 하면 여러개의 함수를 대입할 수 있습니다
             // 이 경우는 마이너스 익명메소드와 플러스 멤버메소드를 연달아 대입했으므로, TestNumber는 변하지 않습니다
             // Arrange (데이터 정렬)
-            delegateExample += AddMember_PlusOne;
+            delegateExample += 멤버변수를_플러스1합니다;
 
             // Action (기능 실행) &&  Assert (맞는지 체크)
             delegateExample();
@@ -71,7 +71,7 @@ namespace Tutorial
 
 
         [Test]
-        public void When_Delegate_Is_Null_Throw_Exception()
+        public void 델리게이트가_Null일때_사용하면_Exception을뱉습니다()
         {
             // Arrange (데이터 정렬)
             DelegateTestName delegateExample = null;
@@ -107,11 +107,11 @@ namespace Tutorial
         event DelegateTestName OnVoidEvent;
 
         [Test]
-        public void Event_HowUse()
+        public void 이벤트는_어떻게쓰는지()
         {
             // Arrange (데이터 정렬)
-            OnVoidEvent += AddMember_PlusOne;
-            OnVoidEvent += AddMember_PlusOne;
+            OnVoidEvent += 멤버변수를_플러스1합니다;
+            OnVoidEvent += 멤버변수를_플러스1합니다;
 
             _iTestNumber = 0;
 
@@ -126,7 +126,7 @@ namespace Tutorial
 
         #endregion
 
-        public void AddMember_PlusOne()
+        public void 멤버변수를_플러스1합니다()
         {
             _iTestNumber++;
         }

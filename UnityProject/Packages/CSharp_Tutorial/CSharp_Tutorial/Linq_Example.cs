@@ -1,9 +1,9 @@
-#region Header
+ï»¿#region Header
 /*	============================================
  *	Author 			    	: Strix
  *	Initial Creation Date 	: 2020-03-15
  *	Summary 		        : 
- *	Å×½ºÆ® ÁöÄ§ ¸µÅ©
+ *	í…ŒìŠ¤íŠ¸ ì§€ì¹¨ ë§í¬
  *	https://github.com/KorStrix/Unity_DevelopmentDocs/Test
  *
  *  Template 		        : Test For Unity Editor V1
@@ -22,10 +22,10 @@ namespace Tutorial
     /// <summary>
     /// 
     /// </summary>
-    public class Linq_Example
+    public class ë§í_íŠœí† ë¦¬ì–¼
     {
         [Test]
-        public void LinqExample_Where_Int()
+        public void Where_Int()
         {
             // Arrange
             List<int> listInt = new List<int>();
@@ -35,10 +35,10 @@ namespace Tutorial
 
 
             // Action
-            // È¦¼ö ±¸ÇÏ±â
+            // í™€ìˆ˜ êµ¬í•˜ê¸°
             var arrOddNumber = listInt.Where(p => p % 2 == 1);
 
-            // Â¦¼ö ±¸ÇÏ±â
+            // ì§ìˆ˜ êµ¬í•˜ê¸°
             var arrPairNumber = listInt.Where(p => p % 2 == 0);
 
 
@@ -64,7 +64,7 @@ namespace Tutorial
         }
 
         [Test]
-        public void LinqExample_Where_String()
+        public void Where_String()
         {
             // Arrange
             List<Human> listHuman = new List<Human>();
@@ -76,27 +76,27 @@ namespace Tutorial
 
 
             // Action
-            // 30´ë ÀÌ»ó
+            // 30ëŒ€ ì´ìƒ
             var arr_AgeOver_30 = listHuman.Where(p => p.iAge >= 30);
 
-            // ÀÌ¸§ÀÌ 5±ÛÀÚ ÀÌ»ó
+            // ì´ë¦„ì´ 5ê¸€ì ì´ìƒ
             var arr_NameLength_EqualOver_5 = listHuman.Where(p => p.strName.Length >= 5);
 
 
 
             // Assert
-            Debug.Log("30´ë ¸®½ºÆ®");
+            Debug.Log("30ëŒ€ ë¦¬ìŠ¤íŠ¸");
             foreach (var pHuman in arr_AgeOver_30)
                 Debug.Log(pHuman.ToString());
 
-            Debug.Log("ÀÌ¸§ ±ä »ç¶÷µé");
+            Debug.Log("ì´ë¦„ ê¸´ ì‚¬ëŒë“¤");
             foreach (var pHuman in arr_NameLength_EqualOver_5)
                 Debug.Log(pHuman.ToString());
 
         }
 
         [Test]
-        public void LinqExample_GroupBy()
+        public void GroupBy()
         {
             // Arrange
             List<Human> listHuman = new List<Human>();
@@ -108,9 +108,9 @@ namespace Tutorial
 
 
             // Action
-            // 30´ë ÀÌ»óÀÇ »ç¶÷µéÀÇ ³ªÀÌ ¸®½ºÆ®
-            // Select = ¾î¶²Å¬·¡½ºÀÇ ÄÃ·º¼ÇÀÌ ÀÖ´Âµ¥,
-            // ÀÌ ÄÃ·º¼ÇÀÇ ¸â¹öº¯¼ö ÄÃ·º¼ÇÀ» ¾ò¾î¿Ã¶§ ¾¸
+            // 30ëŒ€ ì´ìƒì˜ ì‚¬ëŒë“¤ì˜ ë‚˜ì´ ë¦¬ìŠ¤íŠ¸
+            // Select = ì–´ë–¤í´ë˜ìŠ¤ì˜ ì»¬ë ‰ì…˜ì´ ìˆëŠ”ë°,
+            // ì´ ì»¬ë ‰ì…˜ì˜ ë©¤ë²„ë³€ìˆ˜ ì»¬ë ‰ì…˜ì„ ì–»ì–´ì˜¬ë•Œ ì”€
             var arr_AgeOver_30_Age = listHuman.Where(p => p.iAge >= 30).Select(p => p.iAge);
             var arr_AgeOver_30_Name = listHuman.Where(p => p.iAge >= 30).Select(p => p.strName);
 
@@ -120,11 +120,11 @@ namespace Tutorial
 
 
             // Assert
-            Debug.Log("30´ë ÀÌÇÏ´Â?");
+            Debug.Log("30ëŒ€ ì´í•˜ëŠ”?");
             // IGroup<string(30 or 30under), IEnumerable<Human>>
             foreach (var pHumanGroup in arr_AgeOver_30under_Group)
             {
-                Debug.Log("±×·ì¸í : " + pHumanGroup.Key);
+                Debug.Log("ê·¸ë£¹ëª… : " + pHumanGroup.Key);
                 foreach (var pHuman in pHumanGroup)
                     Debug.Log(pHuman.ToString());
             }

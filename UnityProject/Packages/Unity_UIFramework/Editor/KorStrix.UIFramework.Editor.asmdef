@@ -1,0 +1,16 @@
+{
+    "name": "KorStrix.UIFramework.Editor",
+    "references": [
+        "KorStrix.UIFramework.Runtime"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": []
+}

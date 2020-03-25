@@ -8,11 +8,21 @@ env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
 
 jobs:
-  build:
-    name: Build my project ✨
+  testAllModes:
+    name: Test in ${{ matrix.testMode }} on version ${{ matrix.unityVersion }}
     runs-on: ubuntu-latest
-    steps:
+    strategy:
+      fail-fast: false
+      matrix:
+        projectPath:
+          - path/to/your/project
+        unityVersion:
+          - 2019.2.11f1
+        testMode:
+          - playmode
+          - editmode
 
+    steps:
       # Checkout
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -30,9 +40,8 @@ jobs:
         uses: webbertakken/unity-test-runner@v1.4
         with:
           projectPath: UnityProject
-          unityVersion: 2019.2.11f1
-
+            
       - uses: actions/upload-artifact@v1
         with:
-          name: Test results
-          path: /TestResult
+          name: Test results for ${{ matrix.testMode }}
+          path: ${{ steps.tests.outputs.artifactsPath }}

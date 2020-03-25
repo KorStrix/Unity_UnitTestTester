@@ -15,7 +15,7 @@ jobs:
       fail-fast: false
       matrix:
         projectPath:
-          - path/to/your/project
+          - UnityProject
         unityVersion:
           - 2019.2.11f1
         testMode:
@@ -37,10 +37,14 @@ jobs:
 
       # Test
       - name: Run tests
+        id: tests
         uses: webbertakken/unity-test-runner@v1.4
         with:
-          projectPath: UnityProject
-            
+          projectPath: ${{ matrix.projectPath }}
+          unityVersion: ${{ matrix.unityVersion }}
+          testMode: ${{ matrix.testMode }}
+          artifactsPath: ${{ matrix.testMode }}-artifacts
+      
       - uses: actions/upload-artifact@v1
         with:
           name: Test results for ${{ matrix.testMode }}

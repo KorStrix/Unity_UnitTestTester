@@ -24,7 +24,6 @@ public class SMTP_GoogleTester : MonoBehaviour
 	/* public - Field declaration               */
 
 	public SMTP_Google.MailInfo pMailInfo = new SMTP_Google.MailInfo() { strEmail_From = "korstrix@gmail.com", arrEmail_To = new string[] { "korstrix@gmail.com" } };
-	public SMTP_Google.NetworkCredential pCredential = new SMTP_Google.NetworkCredential() { strEmail = "korstrix@gmail.com" };
 
 	public string strMailTitle;
 	public string strMailBody;
@@ -39,7 +38,7 @@ public class SMTP_GoogleTester : MonoBehaviour
 
 	public void DoSendMail_WithLogFile()
 	{
-		SMTP_Google pSMTPGoogle = new SMTP_Google(pMailInfo, pCredential);
+		SMTP_Google pSMTPGoogle = new SMTP_Google(pMailInfo);
 		StartCoroutine(pSMTPGoogle.DoSendMail_WithLogFile_Coroutine(strMailTitle, strMailBody, strLogFileName));
 	}
 

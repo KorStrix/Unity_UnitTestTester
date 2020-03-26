@@ -3,6 +3,13 @@
  *	Aurthor 			    : Strix
  *	Initial Creation Date 	: 2020-03-24
  *	Summary 		        : 
+ *	
+ *	코드를 사용하기 전
+ *	구글 계정은 엑세스 허가가 되지 않은 앱에서 로그인을 막기 때문에
+ *	여기서 엑세스 허가가 필요 없는 비밀번호를 발급받은 후
+ *	그 비밀번호를 세팅해야 함
+ *	https://security.google.com/settings/security/apppasswords
+ *	
  *  Template 		        : For Unity Editor V1
    ============================================ */
 #endregion Header
@@ -18,7 +25,8 @@ using System.Security.Cryptography.X509Certificates;
 using System.IO;
 
 /// <summary>
-/// 구글에 Email을 보내는 클래스입니다
+/// 구글에 Email을 보내는 클래스입니다.
+/// 사용하기 전 Header를 참고 바랍니다.
 /// </summary>
 public class SMTP_Google
 {
@@ -29,43 +37,34 @@ public class SMTP_Google
 	public class MailInfo
     {
 		/// <summary>
-        /// 받는 사람
+        /// 보내는 사람
         /// </summary>
 		public string strEmail_From;
 
 		/// <summary>
-        /// 보내는 사람
-        /// </summary>
+		/// 보내는 사람 비밀번호
+		/// </summary>
+		public string strPassword;
+
+		/// <summary>
+		/// 받는 사람
+		/// </summary>
 		public string[] arrEmail_To;
 	}
 
-	/// <summary>
-    /// SMTP 자격증
-    /// </summary>
-	[System.Serializable]
-	public class NetworkCredential
-    {
-		public string strEmail;
-		public string strPassword;
-	}
-
 	MailInfo _pMailInfo;
-	NetworkCredential _pCredential;
 
 	SmtpClient _pSMTP_Client;
 	string _strLogFolderPath;
 
 
 
-	public SMTP_Google(MailInfo pMailInfo, NetworkCredential pCredential)
+	public SMTP_Google(MailInfo pMailInfo)
 	{
 		_pMailInfo = pMailInfo;
-		_pCredential = pCredential;
 
 		_pSMTP_Client = Init_SMTPClient();
 		_strLogFolderPath = Application.persistentDataPath + "/Log";
-
-		ServicePointManager.ServerCertificateValidationCallback = delegate (object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) { return true; };
 	}
 
 	// ========================================================================================================================
@@ -76,27 +75,25 @@ public class SMTP_Google
 		yield return SaveLog_Coroutine(strLogFilename);
 
 		string strPath_txt = string.Format("{0}/{1}.txt", _strLogFolderPath, strLogFilename);
-		string strPath_zip = string.Format("{0}/{1}.zip", _strLogFolderPath, strLogFilename);
-
-		FileInfo pZipFileInfo = GetZipFileInfo(strPath_txt, strPath_zip);
-		if (pZipFileInfo == null)
+		FileInfo pFileInfo = new FileInfo(strPath_txt);
+		if (pFileInfo == null)
 		{
 			yield break;
 		}
 
-		string strFileSize = (pZipFileInfo.Length / 1024) + "KB";
+		string strFileSize = (pFileInfo.Length / 1024) + "KB";
 
-		Debug.Log($"Send Email Size : {strFileSize} // FilePath : {strPath_zip}");
+		Debug.Log($"Send Email Size : {strFileSize} // FilePath : {strPath_txt}");
 		yield return null;
 
 		try
 		{
-			SendEmail(strMailTitle, strMailBody, strPath_zip);
+			SendEmail(strMailTitle, strMailBody, strPath_txt);
 			Debug.Log("Send Email Complete.");
 
 			try
 			{
-				File.Delete(strPath_zip);
+				File.Delete(strPath_txt);
 			}
 			catch (System.Exception e)
 			{
@@ -118,16 +115,14 @@ public class SMTP_Google
 		string strLogFilePath = string.Format("{0}/{1}.txt", _strLogFolderPath, strFileName);
 
 		Debug.Log("SaveLog: path:" + strLogFilePath);
-		if (!System.IO.Directory.Exists(_strLogFolderPath))
-		{
+		if (System.IO.Directory.Exists(_strLogFolderPath) == false)
 			System.IO.Directory.CreateDirectory(_strLogFolderPath);
-		}
 
-		using (System.IO.FileStream fs = new System.IO.FileStream(strLogFilePath, System.IO.FileMode.Create, System.IO.FileAccess.Write))
-		using (System.IO.StreamWriter writer = new System.IO.StreamWriter(fs))
+		using (System.IO.FileStream pFileStream = new System.IO.FileStream(strLogFilePath, System.IO.FileMode.Create, System.IO.FileAccess.Write))
+		using (System.IO.StreamWriter pWriter = new System.IO.StreamWriter(pFileStream))
 		{
-			writer.WriteLine("Test_Line_1");
-			writer.WriteLine("Test_Line_2");
+			pWriter.WriteLine("Test_Line_1");
+			pWriter.WriteLine("Test_Line_2");
 		}
 
 
@@ -136,40 +131,20 @@ public class SMTP_Google
 		yield break;
 	}
 
-	void SendEmail(string strMailTitle, string strMailBody, string filepath)
+	void SendEmail(string strMailTitle, string strMailBody, string strFilePath)
 	{
 		MailMessage pMail = CreateMail(strMailTitle, strMailBody);
 
 		// 첨부파일 - 대용량은 안됨.
-		if (filepath != "")
+		if (string.IsNullOrEmpty(strFilePath) == false)
 		{
-			System.Net.Mail.Attachment attachment = new System.Net.Mail.Attachment(filepath);
+			System.Net.Mail.Attachment attachment = new System.Net.Mail.Attachment(strFilePath);
 			pMail.Attachments.Add(attachment);
 		}
+		ServicePointManager.ServerCertificateValidationCallback = delegate (object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) { return true; };
 
 		_pSMTP_Client.Send(pMail);
 		pMail.Attachments.Dispose();
-	}
-
-	FileInfo GetZipFileInfo(string strPath_txt, string strPath_zip)
-	{
-		try
-		{
-			if (File.Exists(strPath_zip))
-				File.Delete(strPath_zip);
-		}
-		catch (System.Exception e)
-		{
-			Debug.LogError("Delete Zip1 Exception :" + e.ToString());
-		}
-
-		using (var pZipFile = new Ionic.Zip.ZipFile())
-		{
-			pZipFile.AddFile(strPath_txt);
-			pZipFile.Save(strPath_zip);
-		}
-
-		return new FileInfo(strPath_zip);
 	}
 
 	MailMessage CreateMail(string strMailTitle, string strMailBody)
@@ -195,8 +170,11 @@ public class SMTP_Google
 		SmtpClient pSMTPClient = new SmtpClient("smtp.gmail.com");
 		pSMTPClient.Port = 587;
 		pSMTPClient.UseDefaultCredentials = false;
-		pSMTPClient.Credentials = new System.Net.NetworkCredential(_pCredential.strEmail, _pCredential.strPassword) as ICredentialsByHost; // 보내는사람 주소 및 비밀번호 확인
-																																		   //System.Net.ServicePointManager.Expect100Continue = false;
+		pSMTPClient.Credentials = new System.Net.NetworkCredential(_pMailInfo.strEmail_From, _pMailInfo.strPassword);
+
+		// 보내는사람 주소 및 비밀번호 확인
+		System.Net.ServicePointManager.Expect100Continue = false;
+
 		pSMTPClient.EnableSsl = true;
 
 		return pSMTPClient;

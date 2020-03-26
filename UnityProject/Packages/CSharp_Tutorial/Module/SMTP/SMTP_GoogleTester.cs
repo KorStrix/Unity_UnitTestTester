@@ -38,8 +38,10 @@ public class SMTP_GoogleTester : MonoBehaviour
 
 	public void DoSendMail_WithLogFile()
 	{
+		iTest = 5;
+
 		SMTP_Google pSMTPGoogle = new SMTP_Google(pMailInfo);
-		StartCoroutine(pSMTPGoogle.DoSendMail_WithLogFile_Coroutine(strMailTitle, strMailBody, strLogFileName));
+		StartCoroutine(pSMTPGoogle.DoSendMail_WithLogFile_Coroutine(strMailTitle, strMailBody, strLogFileName, GetLog));
 	}
 
 	// ========================================================================== //
@@ -53,6 +55,15 @@ public class SMTP_GoogleTester : MonoBehaviour
 	// ========================================================================== //
 
 	#region Private
+
+	int iTest = 5;
+
+	string GetLog(out bool bIsFinish)
+	{
+		bIsFinish = iTest < 0;
+
+		return "GetLog Test " + iTest--;
+	}
 
 	#endregion Private
 }

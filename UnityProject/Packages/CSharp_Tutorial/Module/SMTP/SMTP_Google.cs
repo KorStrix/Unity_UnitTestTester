@@ -52,6 +52,8 @@ public class SMTP_Google
 		public string[] arrEmail_To;
 	}
 
+	public delegate string OnGetFileString(out bool bIsFinish);
+
 	MailInfo _pMailInfo;
 
 	SmtpClient _pSMTP_Client;
@@ -70,11 +72,28 @@ public class SMTP_Google
 	// ========================================================================================================================
 
 
-	public IEnumerator DoSendMail_WithLogFile_Coroutine(string strMailTitle, string strMailBody, string strLogFilename)
+	public IEnumerator DoSendMail_Coroutine(string strMailTitle, string strMailBody)
 	{
-		yield return SaveLog_Coroutine(strLogFilename);
+		Debug.Log($"Send Email");
 
-		string strPath_txt = string.Format("{0}/{1}.txt", _strLogFolderPath, strLogFilename);
+		yield return null;
+
+		try
+		{
+			SendEmail(strMailTitle, strMailBody, "");
+			Debug.Log("Send Email Complete.");
+		}
+		catch (System.Exception e)
+		{
+			Debug.Log("Send Email Error \n" + e.ToString());
+		}
+	}
+
+	public IEnumerator DoSendMail_WithLogFile_Coroutine(string strMailTitle, string strMailBody, string strLogFileName, OnGetFileString OnGetLogLine)
+	{
+		yield return SaveLogFile_Coroutine(strLogFileName, OnGetLogLine);
+
+		string strPath_txt = string.Format("{0}/{1}.txt", _strLogFolderPath, strLogFileName);
 		FileInfo pFileInfo = new FileInfo(strPath_txt);
 		if (pFileInfo == null)
 		{
@@ -82,8 +101,8 @@ public class SMTP_Google
 		}
 
 		string strFileSize = (pFileInfo.Length / 1024) + "KB";
-
 		Debug.Log($"Send Email Size : {strFileSize} // FilePath : {strPath_txt}");
+
 		yield return null;
 
 		try
@@ -108,37 +127,39 @@ public class SMTP_Google
 
 	// ========================================================================================================================
 
-	IEnumerator SaveLog_Coroutine(string strFileName)
+	IEnumerator SaveLogFile_Coroutine(string strFileName, OnGetFileString OnGetLogLine)
 	{
 		if (string.IsNullOrEmpty(strFileName))
 			strFileName = SystemInfo.deviceUniqueIdentifier;
 		string strLogFilePath = string.Format("{0}/{1}.txt", _strLogFolderPath, strFileName);
 
-		Debug.Log("SaveLog: path:" + strLogFilePath);
+		Debug.Log("Save Log Path : " + strLogFilePath);
 		if (System.IO.Directory.Exists(_strLogFolderPath) == false)
 			System.IO.Directory.CreateDirectory(_strLogFolderPath);
 
 		using (System.IO.FileStream pFileStream = new System.IO.FileStream(strLogFilePath, System.IO.FileMode.Create, System.IO.FileAccess.Write))
 		using (System.IO.StreamWriter pWriter = new System.IO.StreamWriter(pFileStream))
 		{
-			pWriter.WriteLine("Test_Line_1");
-			pWriter.WriteLine("Test_Line_2");
+			bool bIsFinish = false;
+			while(bIsFinish == false)
+			{
+				pWriter.WriteLine(OnGetLogLine(out bIsFinish));
+
+				yield return null;
+			}
 		}
-
-
-		Debug.Log("Save Log Done.");
 
 		yield break;
 	}
 
-	void SendEmail(string strMailTitle, string strMailBody, string strFilePath)
+	void SendEmail(string strMailTitle, string strMailBody, string strFilePath_OrNull)
 	{
 		MailMessage pMail = CreateMail(strMailTitle, strMailBody);
 
 		// 첨부파일 - 대용량은 안됨.
-		if (string.IsNullOrEmpty(strFilePath) == false)
+		if (string.IsNullOrEmpty(strFilePath_OrNull) == false)
 		{
-			System.Net.Mail.Attachment attachment = new System.Net.Mail.Attachment(strFilePath);
+			System.Net.Mail.Attachment attachment = new System.Net.Mail.Attachment(strFilePath_OrNull);
 			pMail.Attachments.Add(attachment);
 		}
 		ServicePointManager.ServerCertificateValidationCallback = delegate (object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors) { return true; };

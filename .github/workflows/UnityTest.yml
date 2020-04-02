@@ -20,7 +20,6 @@ jobs:
           - 2019.2.11f1
         testMode:
           - playmode
-          - editmode
 
     steps:
       # Checkout

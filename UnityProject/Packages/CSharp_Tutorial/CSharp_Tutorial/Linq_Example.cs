@@ -88,11 +88,10 @@ namespace Tutorial
             Debug.Log("30대 리스트");
             foreach (var pHuman in arr_AgeOver_30)
                 Debug.Log(pHuman.ToString());
-
+            
             Debug.Log("이름 긴 사람들");
             foreach (var pHuman in arr_NameLength_EqualOver_5)
                 Debug.Log(pHuman.ToString());
-
         }
 
         [Test]

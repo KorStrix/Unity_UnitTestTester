@@ -9,11 +9,11 @@ namespace Tests
     public class Tuple_Example
     {
         /// <summary>
-        /// ÀÌ°ÍÀº Çï½º Á¤º¸ÀÔ´Ï´Ù
+        /// ì´ê²ƒì€ í—¬ìŠ¤ ì •ë³´ì…ë‹ˆë‹¤
         /// </summary>
         public class HelathInfo
         {
-            public string CharacterName = "±ÍÂúÀº³à¼®";
+            public string CharacterName = "ê·€ì°®ì€ë…€ì„";
             public int iHPCurrent = 666;
 
             public void DoAddHP(int iHP)
@@ -24,99 +24,99 @@ namespace Tests
 
 
         /// <summary>
-        /// À¥¾ğ¾î¿¡¼­ Æ©ÇÃÀº ³»¿ë¹°À» Àı´ë º¯°æÇÒ¼ö¾ø´Ù.
+        /// ì›¹ì–¸ì–´ì—ì„œ íŠœí”Œì€ ë‚´ìš©ë¬¼ì„ ì ˆëŒ€ ë³€ê²½í• ìˆ˜ì—†ë‹¤.
         /// 
-        /// Æ©ÇÃÀº °´Ã¼°¡ ¾Æ´Ï¶ó µ¥ÀÌÅÍ ±×·ì? (ÀÓ½Ã)
+        /// íŠœí”Œì€ ê°ì²´ê°€ ì•„ë‹ˆë¼ ë°ì´í„° ê·¸ë£¹? (ì„ì‹œ)
         /// </summary>
         [Test]
-        public void Æ©ÇÃÀÇ_»ç¿ë¿¹½Ã()
+        public void íŠœí”Œì˜_ì‚¬ìš©ì˜ˆì‹œ()
         {
-            // ¿øÇÏ´Â °ªÀ» ¸®ÅÏ ¾òÀ¸·Á¸é?
+            // ì›í•˜ëŠ” ê°’ì„ ë¦¬í„´ ì–»ìœ¼ë ¤ë©´?
 
 
 
-            // 1. Class¸¦ Á¤ÀÇÇØ¼­ Class¿¡ ´ã¾Æ ¿øÇÏ´Â °ª ¾ò±â
-            HelathInfo pHealth = Ã¼·ÂÀ»¾ò°íÆÄ();
+            // 1. Classë¥¼ ì •ì˜í•´ì„œ Classì— ë‹´ì•„ ì›í•˜ëŠ” ê°’ ì–»ê¸°
+            HelathInfo pHealth = ì²´ë ¥ì„ì–»ê³ íŒŒ();
 
 
 
-            // 2. OutÀ» ÀÌ¿ëÇØ¼­ ¿øÇÏ´Â °ª ¾ò±â
+            // 2. Outì„ ì´ìš©í•´ì„œ ì›í•˜ëŠ” ê°’ ì–»ê¸°
             int iHP;
             string strCharacterName;
-            Ã¼·ÂÀ»¾ò°íÆÄ_±Ùµ¥_Å¬·¡½ºÁ¤ÀÇÇÏ±â´Â_±ÍÂú´Ù(out strCharacterName, out iHP);
+            ì²´ë ¥ì„ì–»ê³ íŒŒ_ê·¼ë°_í´ë˜ìŠ¤ì •ì˜í•˜ê¸°ëŠ”_ê·€ì°®ë‹¤(out strCharacterName, out iHP);
 
             Assert.AreEqual(pHealth.CharacterName, strCharacterName);
             Assert.AreEqual(pHealth.iHPCurrent, iHP);
 
 
             int iHP_Origin = iHP;
-            Ã¼·ÂÀ»_º¯°æÇØº¸ÀÚ(ref iHP, 10);
+            ì²´ë ¥ì„_ë³€ê²½í•´ë³´ì(ref iHP, 10);
             Assert.AreEqual(iHP, iHP_Origin + 10);
 
 
 
-            // ¾ÏÆ°.. Àß¾È¾¸.. (À¯Áöº¸¼ö Ãø¸é¶§¹®¿¡)
+            // ì•”íŠ¼.. ì˜ì•ˆì”€.. (ìœ ì§€ë³´ìˆ˜ ì¸¡ë©´ë•Œë¬¸ì—)
 
-            // 3-1. TupleÀ» ÀÌ¿ëÇØ¼­ ¿øÇÏ´Â °ª ¾ò±â
-            var pHealth_Tuple = Ã¼·ÂÀ»¾ò°íÆÄ_Æ©ÇÃ¹öÀü();
+            // 3-1. Tupleì„ ì´ìš©í•´ì„œ ì›í•˜ëŠ” ê°’ ì–»ê¸°
+            var pHealth_Tuple = ì²´ë ¥ì„ì–»ê³ íŒŒ_íŠœí”Œë²„ì „();
             Assert.AreEqual(pHealth_Tuple.strCharacterName_Tuple, strCharacterName);
-            Assert.AreEqual(pHealth_Tuple.iHPCurrent_Tuple, iHP);
+            Assert.AreEqual(pHealth_Tuple.iHPCurrent_Tuple, iHP_Origin);
 
-            // 3-2. TupleÀ» ÀÌ¿ëÇØ¼­ ¿øÇÏ´Â °ª ¾ò±â
-            var pHealth_Tuple_UnFriendly = Ã¼·ÂÀ»¾ò°íÆÄ_Æ©ÇÃ¹öÀü_ºÒÄ£Àı¹öÀü();
+            // 3-2. Tupleì„ ì´ìš©í•´ì„œ ì›í•˜ëŠ” ê°’ ì–»ê¸°
+            var pHealth_Tuple_UnFriendly = ì²´ë ¥ì„ì–»ê³ íŒŒ_íŠœí”Œë²„ì „_ë¶ˆì¹œì ˆë²„ì „();
             Assert.AreEqual(pHealth_Tuple_UnFriendly.Item1, strCharacterName);
-            Assert.AreEqual(pHealth_Tuple_UnFriendly.Item2, iHP);
+            Assert.AreEqual(pHealth_Tuple_UnFriendly.Item2, iHP_Origin);
         }
 
 
-        HelathInfo Ã¼·ÂÀ»¾ò°íÆÄ()
+        HelathInfo ì²´ë ¥ì„ì–»ê³ íŒŒ()
         {
             return new HelathInfo();
         }
 
 
         /// <summary>
-        /// ÀÛ¼ºÀÚ ÀÔÀå¿¡¼­´Â 
-        /// Out Å°¿öµå´Â ÇÔ¼ö ³»¿¡¼­ ¹İµå½Ã ÇÒ´çÀ» ÇØ¾ß ÄÄÆÄÀÏ ¿¡·¯°¡ ¾È¶ä
+        /// ì‘ì„±ì ì…ì¥ì—ì„œëŠ” 
+        /// Out í‚¤ì›Œë“œëŠ” í•¨ìˆ˜ ë‚´ì—ì„œ ë°˜ë“œì‹œ í• ë‹¹ì„ í•´ì•¼ ì»´íŒŒì¼ ì—ëŸ¬ê°€ ì•ˆëœ¸
         /// 
-        /// »ç¿ëÀÚ ÀÔÀå¿¡¼­´Â
-        /// ÀÌ ÇÔ¼ö¸¦ È£ÃâÇÏ´Â ¼ø°£ ¹«Á¶°Ç ÇÒ´çÀÌ º¸ÀåµÇÀÖÀ½
+        /// ì‚¬ìš©ì ì…ì¥ì—ì„œëŠ”
+        /// ì´ í•¨ìˆ˜ë¥¼ í˜¸ì¶œí•˜ëŠ” ìˆœê°„ ë¬´ì¡°ê±´ í• ë‹¹ì´ ë³´ì¥ë˜ìˆìŒ
         /// </summary>
-        void Ã¼·ÂÀ»¾ò°íÆÄ_±Ùµ¥_Å¬·¡½ºÁ¤ÀÇÇÏ±â´Â_±ÍÂú´Ù(out string CharacterName, out int iHPCurrent)
+        void ì²´ë ¥ì„ì–»ê³ íŒŒ_ê·¼ë°_í´ë˜ìŠ¤ì •ì˜í•˜ê¸°ëŠ”_ê·€ì°®ë‹¤(out string CharacterName, out int iHPCurrent)
         {
-            HelathInfo pHP = Ã¼·ÂÀ»¾ò°íÆÄ();
+            HelathInfo pHP = ì²´ë ¥ì„ì–»ê³ íŒŒ();
             CharacterName = pHP.CharacterName;
             iHPCurrent = pHP.iHPCurrent;
         }
 
         /// <summary>
-        /// ref¸¦ ¾²¸é structµµ ÇÔ¼ö ¹Ù±ù¿¡ ³ª¿Íµµ Àû¿ëµÊ
+        /// refë¥¼ ì“°ë©´ structë„ í•¨ìˆ˜ ë°”ê¹¥ì— ë‚˜ì™€ë„ ì ìš©ë¨
         /// </summary>
-        void Ã¼·ÂÀ»_º¯°æÇØº¸ÀÚ(ref int iHPCurrent, int iAddHP)
+        void ì²´ë ¥ì„_ë³€ê²½í•´ë³´ì(ref int iHPCurrent, int iAddHP)
         {
             iHPCurrent += iAddHP;
         }
 
         /// <summary>
-        /// Æ©ÇÃÀ» Á¤ÀÇÇÏ´Â ¹ı
-        /// ¸®ÅÏÇÏ´Â °÷¿¡ () ÇÏ°í º¯¼ö Å¸ÀÔ ¹× º¯¼ö¸íÀ» ÀûÀ¸¸é µË´Ï´Ù.
+        /// íŠœí”Œì„ ì •ì˜í•˜ëŠ” ë²•
+        /// ë¦¬í„´í•˜ëŠ” ê³³ì— () í•˜ê³  ë³€ìˆ˜ íƒ€ì… ë° ë³€ìˆ˜ëª…ì„ ì ìœ¼ë©´ ë©ë‹ˆë‹¤.
         /// </summary>
         /// <returns></returns>
-        (string strCharacterName_Tuple, int iHPCurrent_Tuple) Ã¼·ÂÀ»¾ò°íÆÄ_Æ©ÇÃ¹öÀü()
+        (string strCharacterName_Tuple, int iHPCurrent_Tuple) ì²´ë ¥ì„ì–»ê³ íŒŒ_íŠœí”Œë²„ì „()
         {
-            HelathInfo pHP = Ã¼·ÂÀ»¾ò°íÆÄ();
+            HelathInfo pHP = ì²´ë ¥ì„ì–»ê³ íŒŒ();
             return (pHP.CharacterName, pHP.iHPCurrent);
         }
 
         /// <summary>
-        /// º¯¼ö Å¸ÀÔ¸¸ Àû¾îµµ µ¿ÀÛÀº ÇÔ (ºÒÄ£Àı ¹öÀü)
+        /// ë³€ìˆ˜ íƒ€ì…ë§Œ ì ì–´ë„ ë™ì‘ì€ í•¨ (ë¶ˆì¹œì ˆ ë²„ì „)
         /// 
-        /// ÀÌ·¯¸é ÀÚµ¿À¸·Î Item1, Item2 µîÀ¸·Î ÇÒ´çµË´Ï´Ù.
+        /// ì´ëŸ¬ë©´ ìë™ìœ¼ë¡œ Item1, Item2 ë“±ìœ¼ë¡œ í• ë‹¹ë©ë‹ˆë‹¤.
         /// </summary>
         /// <returns></returns>
-        (string, int) Ã¼·ÂÀ»¾ò°íÆÄ_Æ©ÇÃ¹öÀü_ºÒÄ£Àı¹öÀü()
+        (string, int) ì²´ë ¥ì„ì–»ê³ íŒŒ_íŠœí”Œë²„ì „_ë¶ˆì¹œì ˆë²„ì „()
         {
-            HelathInfo pHP = Ã¼·ÂÀ»¾ò°íÆÄ();
+            HelathInfo pHP = ì²´ë ¥ì„ì–»ê³ íŒŒ();
             return (pHP.CharacterName, pHP.iHPCurrent);
         }
     }

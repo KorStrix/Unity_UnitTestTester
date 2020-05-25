@@ -1,11 +1,9 @@
 # Unity_UnitTestTester
-유니티 라이브러리의 테스트 함수를 대신 실행해주는 유니티 프로젝트입니다.\
+유니티 라이브러리의 테스트 함수를 대신 실행해주는 유니티 프로젝트입니다.
 
 ## 테스트하는 저장소 목록
 | Plugin | COMMENT | LINK |
 | ------ | ------ | ------ |
-| <b>GetComponent Attribute</b> | Unity GetComponent를 Attribute를 통해 사용할 수 있는 플러그인입니다.| [https://github.com/KorStrix/Unity_GetComponentAttribute](https://github.com/KorStrix/Unity_GetComponentAttribute) |
-| <b>Jenkins Builder</b> | 외부 CI툴에서 유니티 빌드 자동화를 하기 위한 플러그인입니다. | [https://github.com/KorStrix/Unity_JenkinsBuilder](https://github.com/KorStrix/Unity_JenkinsBuilder) |
 | <b>UI Framework</b> | 유니티 UGUI 기반의 프레임워크입니다. | [https://github.com/KorStrix/Unity_UIFramework](https://github.com/KorStrix/Unity_UIFramework) |
 | <b>Unity Pattern</b> | 유니티에서 자주 사용하는 패턴 모음입니다. | [https://github.com/KorStrix/Unity_Pattern](https://github.com/KorStrix/Unity_Pattern.git) |
 

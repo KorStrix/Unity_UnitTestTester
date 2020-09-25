@@ -20,6 +20,7 @@ jobs:
           - 2019.2.11f1
         testMode:
           - playmode
+          - editmode
 
     steps:
       # Checkout
@@ -28,11 +29,15 @@ jobs:
         with:
           lfs: true
 
+
       # Cache
       - uses: actions/cache@v1.1.0
         with:
-          path: Library
-          key: Library
+          path: ${{ matrix.projectPath }}/Library
+          key: Library-${{ matrix.projectPath }}
+          restore-keys: |
+            Library-
+
 
       # Test
       - name: Run tests
@@ -44,6 +49,8 @@ jobs:
           testMode: ${{ matrix.testMode }}
           artifactsPath: ${{ matrix.testMode }}-artifacts
       
+      
+      # Upload Test
       - uses: actions/upload-artifact@v1
         with:
           name: Test results for ${{ matrix.testMode }}
